@@ -1,8 +1,6 @@
 import os
 import sys
-from rich.console import Console
-
-console = Console()
+import platform
 
 def is_docker():
     """Check if the current process is running inside a Docker container."""
@@ -39,74 +37,74 @@ def spawn_external_terminal(command):
                     os.system(f"{term} -e \"bash -c '{command}; exec bash'\"")
                 return
         # Fallback
-        console.print(f"[yellow]No external terminal found. Running mission in current session...[/yellow]")
+        print(f"No external terminal found. Running mission in current session...")
         os.system(command)
 
 if __name__ == "__main__":
-    # If run on Host (Any OS), automatically spawn the external terminal with Docker
     if not is_docker():
-        console.print(f"\nLaunching [bold cyan]GRNT CODE[/bold cyan] in external terminal...")
+        print("\n\033[1;36mLaunching GRNT CODE in external terminal...\033[0m")
         docker_cmd = "docker-compose build; docker-compose run --rm grnt-code"
         spawn_external_terminal(docker_cmd)
         sys.exit(0)
 
-import click
-from rich.rule import Rule
-from .agent import Agent48
+    # Everything below only runs INSIDE Docker
+    import click
+    from rich.console import Console
+    from rich.rule import Rule
+    from .agent import Agent48
 
-console = Console()
+    console = Console()
 
-GRNT_LOGO = """
+    GRNT_LOGO = """
    ▗▟██▙▖
   ▐█[bold cyan]●[/bold cyan]  [bold cyan]●[/bold cyan]█▌   [bold white]GRNT CODE v1.0.0[/bold white]
   ▐▙▄▄▄▄▟▌   [dim]GPU-Ready Resilient Neural Terminal[/dim]
    ▝▜██▛▘    [dim]{model} · {cwd}[/dim]
 """
 
-@click.command()
-@click.option('--model', default='granite4:3b', help='Ollama model to use')
-def main(model):
-    # Initial Launch Sequence
-    console.print("\n[bold white]Model Configuration[/bold white]\n")
-    console.print(f"Launching [bold cyan]GRNT CODE[/bold cyan] with [bold]{model}[/bold]...")
-    
-    agent = Agent48(model=model)
-    cwd = os.getcwd()
-    
-    # Header Layout
-    console.print(GRNT_LOGO.format(model=model, cwd=cwd))
-    console.print(f"[dim]/model to try other local models[/dim]\n")
-    console.print(Rule(style="dim"))
+    @click.command()
+    @click.option('--model', default='granite4:3b', help='Ollama model to use')
+    def main_entry(model):
+        # Initial Launch Sequence
+        console.print("\n[bold white]Model Configuration[/bold white]\n")
+        console.print(f"Launching [bold cyan]GRNT CODE[/bold cyan] with [bold]{model}[/bold]...")
+        
+        agent = Agent48(model=model)
+        cwd = os.getcwd()
+        
+        # Header Layout
+        console.print(GRNT_LOGO.format(model=model, cwd=cwd))
+        console.print(f"[dim]/model to try other local models[/dim]\n")
+        console.print(Rule(style="dim"))
 
-    while True:
-        try:
-            # Main prompt style
-            query = click.prompt("❯", prompt_suffix=" ")
-            
-            if query.lower() in ['exit', 'quit', 'bye']:
+        while True:
+            try:
+                # Main prompt style
+                query = click.prompt("❯", prompt_suffix=" ")
+                
+                if query.lower() in ['exit', 'quit', 'bye']:
+                    break
+                
+                if query.lower() == '?':
+                    console.print("\n[bold cyan]Shortcuts:[/bold cyan]")
+                    console.print("  [bold]?[/bold]      Show shortcuts")
+                    console.print("  [bold]exit[/bold]   End session\n")
+                    continue
+
+                console.print(Rule(style="dim"))
+                
+                # Response streaming
+                for chunk in agent.chat(query):
+                    console.print(chunk, end="")
+                console.print("")
+                
+                console.print(Rule(style="dim"))
+                console.print("  [dim]? for shortcuts[/dim]")
+                
+            except KeyboardInterrupt:
+                console.print("\n[dim]Session terminated.[/dim]")
                 break
-            
-            if query.lower() == '?':
-                console.print("\n[bold cyan]Shortcuts:[/bold cyan]")
-                console.print("  [bold]?[/bold]      Show shortcuts")
-                console.print("  [bold]exit[/bold]   End session\n")
-                continue
+            except Exception as e:
+                console.print(f"[bold red]Error:[/bold red] {e}")
 
-            console.print(Rule(style="dim"))
-            
-            # Response streaming
-            for chunk in agent.chat(query):
-                console.print(chunk, end="")
-            console.print("")
-            
-            console.print(Rule(style="dim"))
-            console.print("  [dim]? for shortcuts[/dim]")
-            
-        except KeyboardInterrupt:
-            console.print("\n[dim]Session terminated.[/dim]")
-            break
-        except Exception as e:
-            console.print(f"[bold red]Error:[/bold red] {e}")
-
-if __name__ == "__main__":
-    main()
+    main_entry()
