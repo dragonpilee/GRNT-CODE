@@ -46,23 +46,23 @@ Named as a tribute to the solid foundation of IBM's Granite models and the "grun
 
 ### Quick Run (Cross-Platform)
 
-Simply run the script directly to auto-launch the Docker environment in a new terminal window (Windows, Linux, or macOS):
+Simply run the script directly to auto-launch the Docker environment into your native terminal (iTerm2/Terminal on macOS, PowerShell on Windows, Gnome-Terminal/etc on Linux):
 ```bash
 python src/main.py
 ```
 
-### Manual Installation & Run (Other)
+### Manual Installation & Run
+
+1.  **Clone the Repository**:
+    ```bash
+    git clone https://github.com/dragonpilee/GRNT-CODE.git
+    cd GRNT-CODE
+    ```
 
 2.  **Build and Launch**:
     ```bash
     docker-compose build
     docker-compose run --rm grnt-code
-    ```
-
-3.  **External Terminal (Windows)**:
-    To launch in a dedicated PowerShell window:
-    ```powershell
-    start powershell "-NoExit -Command \"docker-compose run --rm grnt-code\""
     ```
 
 ---
