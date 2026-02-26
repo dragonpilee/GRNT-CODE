@@ -7,10 +7,10 @@ from .agent import Agent48
 console = Console()
 
 GRNT_LOGO = """
-  ▗▟██▙▖   [bold white]GRNT CODE v1.0.0[/bold white]
- ▐██████▌  [dim]GPU-Ready Resilient Neural Terminal[/dim]
-  ▝▜██▛▘   [dim]{model} · {cwd}[/dim]
-   ▝▘▝▘
+   ▗▟██▙▖
+  ▐█[bold cyan]●[/bold cyan]  [bold cyan]●[/bold cyan]█▌   [bold white]GRNT CODE v1.0.0[/bold white]
+  ▐▙▄▄▄▄▟▌   [dim]GPU-Ready Resilient Neural Terminal[/dim]
+   ▝▜██▛▘    [dim]{model} · {cwd}[/dim]
 """
 
 @click.command()
