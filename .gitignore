@@ -21,8 +21,8 @@ wheels/
 .installed.cfg
 *.egg
 
-# Agent 48 Data
-.agent48_history.json
+# GRNT CODE Data
+.grnt_code_history.json
 short_story.txt
 
 # Docker

@@ -5,17 +5,16 @@ from rich.console import Console
 from .tools import TOOLS, TOOL_MAP
 
 console = Console()
-HISTORY_FILE = "/workspace/.agent48_history.json"
+HISTORY_FILE = "/workspace/.grnt_code_history.json"
 
 class Agent48:
     def __init__(self, model: str):
         self.model = model
         self.system_prompt = (
-            "You are agent48, a highly efficient and precise CLI coding agent inspired by the world's most professional assassins. "
-            "You handle coding tasks with surgical precision. "
+            "You are GRNT CODE, a high-performance CLI coding agent. "
+            "You provide direct, functional, and efficient solutions. "
             "You have access to tools for file manipulation and command execution in '/workspace'. "
-            "Execute your objectives sequentially. Be professional, concise, and focused on the mission. "
-            "Identify yourself as Agent 48."
+            "Respond concisely and focus on the technical implementation."
         )
         self.messages = self._load_history()
 

@@ -5,26 +5,30 @@ from .agent import Agent48
 
 console = Console()
 
-AGENT48_ART = """
-      .---.
-     /     \\
-    | () () |
-     \\  ^  /
-      |||||
-      |||||
+GRNT_ART = """
+   ______ ____   _   __ ______
+  / ____// __ \ / | / //_  __/
+ / / __ / /_/ //  |/ /  / /   
+/ /_/ // _, _// /|  /  / /    
+\____//_/ |_|/_/ |_/  /_/     
+   ______ ____   ____   ______
+  / ____// __ \ / __ \ / ____/
+ / /    / / / // / / // __/   
+/ /___ / /_/ // /_/ // /___   
+\____/ \____//_____//_____/   
 """
 
 @click.command()
 @click.option('--model', default='granite4:3b', help='Ollama model to use')
 def main(model):
-    console.print(Panel(f"[bold red]{AGENT48_ART}[/bold red]\n[bold white]AGENT 48[/bold white]\n[dim]Surgical Precision Coding[/dim]", expand=False))
-    console.print(f"Target Acquired: [cyan]{model}[/cyan]")
+    console.print(Panel(f"[bold cyan]{GRNT_ART}[/bold cyan]\n[bold white]GRNT CODE CLI[/bold white]\n[dim]Functional • Direct • Local[/dim]", expand=False))
+    console.print(f"Model: [cyan]{model}[/cyan]")
     
     agent = Agent48(model=model)
     
     while True:
         try:
-            query = click.prompt("\n[bold red]MISSION[/bold red] >")
+            query = click.prompt("\n[bold cyan]PROMPT[/bold cyan] >")
             if query.lower() in ['exit', 'quit', 'bye']:
                 break
             

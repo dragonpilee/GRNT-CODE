@@ -1,26 +1,31 @@
-# Agent 48
+# GRNT CODE
 
 ```
-      .---.
-     /     \\
-    | () () |
-     \\  ^  /
-      |||||
-      |||||
+   ______ ____   _   __ ______
+  / ____// __ \ / | / //_  __/
+ / / __ / /_/ //  |/ /  / /   
+/ /_/ // _, _// /|  /  / /    
+\____//_/ |_|/_/ |_/  /_/     
+   ______ ____   ____   ______
+  / ____// __ \ / __ \ / ____/
+ / /    / / / // / / // __/   
+/ /___ / /_/ // /_/ // /___   
+\____/ \____//_____//_____/   
 ```
 
-**Agent 48** is a specialized, Docker-only CLI coding agent inspired by Claude Code and the *Hitman* series. It provides a surgical approach to coding tasks by interfacing with local LLMs via Ollama.
+**GRNT CODE** is a specialized, high-performance, Docker-only CLI coding agent.
+ It provides a surgical approach to coding tasks by interfacing with local LLMs via Ollama.
 
 ## Features
 
-- **Tactical Upgrades**:
+- **Tactical Performance**:
     - **Streaming Responses**: Real-time generation for a faster feel.
-    - **Persistent Memory**: Saves history in `.agent48_history.json` so you can resume missions.
-    - **Surgical Search**: New `search_files` tool for finding code patterns instantly.
-    - **Manual Confirmation**: Agent 48 will ask for your permission before executing any terminal command.
-- **Agentic Persona**: A professional, concise system prompt designed for mission focus.
+    - **Persistent Memory**: Saves history in `.grnt_code_history.json` so you can resume sessions.
+    - **Search Engine**: New `search_files` tool for finding code patterns instantly.
+    - **Manual Confirmation**: Built-in safety for terminal commands.
+- **Direct Persona**: A clean, professional system prompt focused on code.
 - **Ollama Integration**: Uses locally hosted models (defaults to `granite4:3b`).
-- **Rich TUI**: A beautiful terminal interface with a Hitman ASCII art icon.
+- **Modern TUI**: A beautiful terminal interface with clean block ASCII art.
 
 ## Prerequisites
 
@@ -58,4 +63,4 @@ docker-compose run agent48 --model llama3.2:3b
 ```
 
 ---
-*Precision is the only thing that matters.*
+*Functional. Direct. Local.*
