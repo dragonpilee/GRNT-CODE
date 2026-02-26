@@ -1,5 +1,18 @@
-import click
 import os
+import sys
+
+def is_docker():
+    """Check if the current process is running inside a Docker container."""
+    return os.path.exists('/.dockerenv') or os.path.exists('/run/.containerenv')
+
+if __name__ == "__main__":
+    # If run on Host (Windows), automatically spawn the external terminal with Docker
+    if not is_docker() and os.name == 'nt':
+        print("Launching GRNT CODE in external terminal...")
+        os.system('start powershell "-NoExit -Command \\"docker-compose build; docker-compose run --rm grnt-code\\""')
+        sys.exit(0)
+
+import click
 from rich.console import Console
 from rich.rule import Rule
 from .agent import Agent48

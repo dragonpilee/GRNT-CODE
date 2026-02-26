@@ -44,13 +44,14 @@ Named as a tribute to the solid foundation of IBM's Granite models and the "grun
 2.  **Ollama**: Ensure [Ollama](https://ollama.com/) is running on your host machine.
 3.  **Model**: Pull the recommended model: `ollama pull granite4:3b`
 
-### Installation & Run
+### Quick Run (Windows)
 
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/dragonpilee/GRNT-CODE.git
-    cd GRNT-CODE
-    ```
+Simply run the script directly to auto-launch the Docker environment in a new window:
+```powershell
+python src/main.py
+```
+
+### Manual Installation & Run (Other)
 
 2.  **Build and Launch**:
     ```bash
