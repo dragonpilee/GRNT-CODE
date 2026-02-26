@@ -44,10 +44,10 @@ Named as a tribute to the solid foundation of IBM's Granite models and the "grun
 2.  **Ollama**: Ensure [Ollama](https://ollama.com/) is running on your host machine.
 3.  **Model**: Pull the recommended model: `ollama pull granite4:3b`
 
-### Quick Run (Windows)
+### Quick Run (Cross-Platform)
 
-Simply run the script directly to auto-launch the Docker environment in a new window:
-```powershell
+Simply run the script directly to auto-launch the Docker environment in a new terminal window (Windows, Linux, or macOS):
+```bash
 python src/main.py
 ```
 

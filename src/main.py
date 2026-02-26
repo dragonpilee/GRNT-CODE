@@ -5,11 +5,34 @@ def is_docker():
     """Check if the current process is running inside a Docker container."""
     return os.path.exists('/.dockerenv') or os.path.exists('/run/.containerenv')
 
+def spawn_external_terminal(command):
+    """Spawns a new terminal window based on the OS."""
+    if os.name == 'nt':
+        # Windows
+        os.system(f'start powershell "-NoExit -Command \\"{command}\\""')
+    elif sys.platform == 'darwin':
+        # macOS
+        os.system(f"osascript -e 'tell application \"Terminal\" to do script \"cd {os.getcwd()} && {command}\"'")
+    else:
+        # Linux - try common terminals
+        terminals = ['gnome-terminal', 'konsole', 'xfce4-terminal', 'xterm', 'terminator']
+        for term in terminals:
+            if os.system(f"which {term} > /dev/null 2>&1") == 0:
+                if term == 'gnome-terminal':
+                    os.system(f"{term} -- bash -c \"{command}; exec bash\"")
+                else:
+                    os.system(f"{term} -e \"bash -c '{command}; exec bash'\"")
+                return
+        # Fallback: just run in current session if no GUI terminal is found
+        print(f"No external terminal found. Running mission in current session...")
+        os.system(command)
+
 if __name__ == "__main__":
-    # If run on Host (Windows), automatically spawn the external terminal with Docker
-    if not is_docker() and os.name == 'nt':
-        print("Launching GRNT CODE in external terminal...")
-        os.system('start powershell "-NoExit -Command \\"docker-compose build; docker-compose run --rm grnt-code\\""')
+    # If run on Host (Any OS), automatically spawn the external terminal with Docker
+    if not is_docker():
+        print(f"Launching [bold cyan]GRNT CODE[/bold cyan] in external terminal...")
+        docker_cmd = "docker-compose build; docker-compose run --rm grnt-code"
+        spawn_external_terminal(docker_cmd)
         sys.exit(0)
 
 import click
