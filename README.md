@@ -44,22 +44,20 @@
 
 3. **Deploy the Agent**:
    ```powershell
-   docker-compose run agent48
+   docker-compose run grnt-code
    ```
 
 ## Usage
 
-Once active, use the `MISSION >` prompt to give instructions.
+Once active, use the `PROMPT >` to give instructions.
 
 - **Filesystem**: "List the files in the src folder" or "Read main.py".
 - **Creation**: "Create a new Python script that calculates fibonacci numbers".
 - **Execution**: "Run the tests" or "Check the python version".
 
-## Mission Control
-
 You can specify a different model at runtime:
 ```powershell
-docker-compose run agent48 --model llama3.2:3b
+docker-compose run grnt-code --model llama3.2:3b
 ```
 
 ---
