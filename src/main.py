@@ -66,8 +66,7 @@ if __name__ == "__main__":
    ▗▟██▙▖
   ▐█[bold cyan]●[/bold cyan]  [bold cyan]●[/bold cyan]█▌   [bold white]GRNT CODE v1.0.0[/bold white]
   ▐▙▄▄▄▄▟▌   [dim]GPU-Ready Resilient Neural Terminal[/dim]
-   ▝▜██▛▘    [dim]Creator: alan ctril sunny[/dim]
-             [dim]{model} · {cwd}[/dim]
+   ▝▜██▛▘    [dim]{model} · {cwd}[/dim]
 """
 
     @click.command()
