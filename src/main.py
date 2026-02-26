@@ -9,9 +9,16 @@ def is_docker():
 def spawn_external_terminal(command):
     """Spawns a new terminal window based on the OS with multi-terminal support."""
     cwd = os.getcwd()
+    
+    # Check for docker compose vs docker-compose
+    docker_check = "docker compose version > /dev/null 2>&1" if os.name != 'nt' else "docker compose version > nul 2>&1"
+    if os.system(docker_check) == 0:
+        command = command.replace("docker-compose", "docker compose")
+
     if os.name == 'nt':
-        # Windows
-        os.system(f'start powershell "-NoExit -Command \\"{command}\\""')
+        # Windows: Use start with a title to avoid quote parsing issues
+        # -NoExit keeps the window open. & { ... } is the PS command block.
+        os.system(f'start "GRNT CODE" powershell -NoExit -Command "& {{ {command} }}"')
     elif sys.platform == 'darwin':
         # macOS: Try iTerm2 first, then system Terminal
         iterm_check = "osascript -e 'id of application \"iTerm\"' > /dev/null 2>&1"
